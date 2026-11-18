@@ -27,6 +27,15 @@ suite('platform registry', () => {
         assert.strictEqual(deepseek.capture?.url, 'https://chat.deepseek.com/api/v0/chat/completion');
     });
 
+    test('uses current Claude assistant message selector', () => {
+        const sites = getConfiguredAiSites(undefined);
+        const claude = findAiSiteById(sites, 'claude');
+
+        assert.ok(claude);
+        assert.strictEqual(claude.selectors.messageBlocks, '[data-testid="assistant-message"]');
+        assert.strictEqual(claude.selectors.codeBlocks, 'pre code');
+    });
+
     test('adds a default send delay only for DeepSeek', () => {
         const sites = getConfiguredAiSites(undefined);
         for (const site of sites) {
