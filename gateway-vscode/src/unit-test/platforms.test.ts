@@ -17,7 +17,10 @@ suite('platform registry', () => {
         assert.strictEqual(chatgpt.address, 'https://chatgpt.com');
         assert.strictEqual(chatgpt.capture?.adapter, 'chatgpt-delta-v1');
         assert.strictEqual(chatgpt.capture?.url, 'https://chatgpt.com/backend-api/f/conversation');
-        assert.strictEqual(typeof chatgpt.selectors.inputArea, 'string');
+        assert.strictEqual(
+            chatgpt.selectors.inputArea,
+            '#prompt-textarea, [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]'
+        );
 
         const deepseek = findAiSiteById(sites, 'deepseek');
         assert.ok(deepseek);
