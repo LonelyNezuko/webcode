@@ -12,6 +12,11 @@
   通过 VS Code 插件与浏览器插件，打破网页 AI 与本地项目之间的边界，使 ChatGPT、Gemini、DeepSeek 等网页 AI 连接到本地 VS Code，获得读写文件、运行命令的能力，还支持 MCP 和 Skills。
 </p>
 
+> [!NOTE]
+> **LonelyNezuko 的维护分支**，基于上游项目 [three-water666/webcode](https://github.com/three-water666/webcode)。本分支保留上游项目的功能与文档，并包含针对 Claude 网页版消息识别的修复。
+>
+> Claude 修复：将过时的 `.font-claude-response` 消息选择器替换为当前使用的 `[data-testid="assistant-message"]`，使 WebCode 能够定位 Claude 的 assistant 回复及其中的代码块；同时增加了回归测试。
+
 <p align="center">
   中文 | <a href="README_en.md">English</a>
 </p>
@@ -168,6 +173,13 @@ webcode 目前已内置支持以下 AI 平台：
 ## 参与贡献
 
 欢迎提交 Issue 和 Pull Request。
+
+## 本分支维护与作者
+
+- **LonelyNezuko** — 分支维护者、需求提出者与项目贡献者。
+- **ChatGPT (OpenAI)** — AI 辅助分析、Claude 消息选择器修复及回归测试编写。
+
+本仓库是 [three-water666/webcode](https://github.com/three-water666/webcode) 的 fork。上游项目的原始作者及贡献者仍应以其原仓库记录为准。
 
 ## 致谢
 
