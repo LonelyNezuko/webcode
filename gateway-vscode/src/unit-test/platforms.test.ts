@@ -21,6 +21,9 @@ suite('platform registry', () => {
             chatgpt.selectors.inputArea,
             '#prompt-textarea, [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]'
         );
+        assert.ok(chatgpt.selectors.sendButton.includes('button[data-testid="composer-submit-button"]'));
+        assert.ok(chatgpt.selectors.sendButton.includes('button[aria-label*="Send"]'));
+        assert.ok(chatgpt.selectors.stopButton.includes('button[data-testid*="stop"]'));
 
         const deepseek = findAiSiteById(sites, 'deepseek');
         assert.ok(deepseek);
