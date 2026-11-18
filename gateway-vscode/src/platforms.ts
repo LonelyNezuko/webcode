@@ -132,7 +132,7 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
         address: 'https://claude.ai/',
         showQuickLaunch: true,
         selectors: {
-            messageBlocks: '.font-claude-response',
+            messageBlocks: '[data-testid="assistant-message"]',
             codeBlocks: 'pre code',
             inputArea: 'div[contenteditable="true"]',
             sendButton: 'button[aria-label="Send message"]',
