@@ -154,12 +154,18 @@ const autoInitPrompt = new AutoInitPromptController({
   loadPromptsFromStorage,
 });
 
+let domConfigRequestId = 0;
+
 async function loadDOMConfig(): Promise<void> {
+  const requestId = ++domConfigRequestId;
   const status = await getCurrentStatus();
+  if (requestId !== domConfigRequestId) {return;}
+
   CONFIG.autoSend = status?.autoSend !== false;
   CONFIG.autoApproveTools = status?.autoApproveTools === true;
 
   if (!status?.connected || typeof status.siteId !== "string") {
+    isClientConnected = false;
     resetCurrentSite();
     console.log(`${BRANDING.productName}: Current tab is not connected to a configured site. Idle.`);
     return;
@@ -172,6 +178,7 @@ async function loadDOMConfig(): Promise<void> {
   }
 
   const localItems = await getStorage(chrome.storage.local, ["syncedAiSites"]);
+  if (requestId !== domConfigRequestId) {return;}
   applySyncedSiteConfig(status.siteId, getSyncedAiSites(localItems.syncedAiSites));
 }
 
