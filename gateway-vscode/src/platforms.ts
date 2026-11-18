@@ -56,7 +56,7 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
         selectors: {
             messageBlocks: '.agent-turn',
             codeBlocks: 'pre code',
-            inputArea: '#prompt-textarea',
+            inputArea: '#prompt-textarea, [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]',
             sendButton: 'button[data-testid="send-button"]',
             stopButton: 'button[data-testid="stop-button"]',
             maxInlineChars: 20000
