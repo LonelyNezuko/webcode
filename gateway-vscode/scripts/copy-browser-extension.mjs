@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import {
-  cpSync,
+  copyFileSync,
   existsSync,
   mkdirSync,
   readFileSync,
@@ -34,8 +34,7 @@ if (typeof sourceManifest.key !== 'string' || !sourceManifest.key || manifest.ke
 }
 
 rmSync(targetDir, { recursive: true, force: true });
-mkdirSync(targetDir, { recursive: true });
-cpSync(sourceDir, targetDir, { recursive: true });
+copyDirectory(sourceDir, targetDir);
 
 const bridgeProtocol = JSON.parse(readFileSync(bridgeProtocolPath, 'utf8'));
 const buildDescriptor = {
@@ -47,14 +46,14 @@ const buildDescriptor = {
 };
 writeFileSync(
   resolve(targetDir, BUILD_DESCRIPTOR_FILE),
-  `${JSON.stringify(buildDescriptor, null, 2)}\n`,
+  `${JSON.stringify(buildDescriptor, null, 2)}\\n`,
   'utf8'
 );
 
 function hashExtensionFiles(rootDir) {
   // Match runtime validation: sort normalized relative paths by UTF-16 code units.
   const files = collectFiles(rootDir)
-    .map(filePath => relative(rootDir, filePath).replace(/\\/g, '/'))
+    .map(filePath => relative(rootDir, filePath).replace(/\\\\/g, '/'))
     .sort();
   const hash = createHash('sha256');
   for (const relativePath of files) {
@@ -62,9 +61,9 @@ function hashExtensionFiles(rootDir) {
       continue;
     }
     hash.update(relativePath, 'utf8');
-    hash.update('\0');
+    hash.update('\\0');
     hash.update(readFileSync(resolve(rootDir, relativePath)));
-    hash.update('\0');
+    hash.update('\\0');
   }
   return hash.digest('hex');
 }
@@ -83,4 +82,26 @@ function collectFiles(directory) {
     }
   }
   return files;
+}
+
+function copyDirectory(source, destination) {
+  mkdirSync(destination, { recursive: true });
+
+  for (const entry of readdirSync(source, { withFileTypes: true })) {
+    const sourcePath = resolve(source, entry.name);
+    const targetPath = resolve(destination, entry.name);
+
+    if (entry.isSymbolicLink()) {
+      throw new Error(`Symbolic links are not supported: ${sourcePath}`);
+    }
+
+    if (entry.isDirectory()) {
+      copyDirectory(sourcePath, targetPath);
+      continue;
+    }
+
+    if (entry.isFile()) {
+      copyFileSync(sourcePath, targetPath);
+    }
+  }
 }
