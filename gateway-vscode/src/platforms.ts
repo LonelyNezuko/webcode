@@ -57,8 +57,19 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
             messageBlocks: '.agent-turn',
             codeBlocks: 'pre code',
             inputArea: '#prompt-textarea, [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]',
-            sendButton: 'button[data-testid="send-button"]',
-            stopButton: 'button[data-testid="stop-button"]',
+            sendButton: [
+                'button[data-testid="send-button"]',
+                'button[data-testid="composer-submit-button"]',
+                'button[id*="composer-submit"]',
+                'button[aria-label*="Send"]',
+                'button[aria-label*="Отправить"]'
+            ].join(', '),
+            stopButton: [
+                'button[data-testid="stop-button"]',
+                'button[data-testid*="stop"]',
+                'button[aria-label*="Stop"]',
+                'button[aria-label*="Остановить"]'
+            ].join(', '),
             maxInlineChars: 20000
         }
     },
