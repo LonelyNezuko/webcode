@@ -54,11 +54,11 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
             url: 'https://chatgpt.com/backend-api/f/conversation'
         },
         selectors: {
-            messageBlocks: '.agent-turn',
+            messageBlocks: '[data-message-author-role="assistant"], .agent-turn',
             codeBlocks: 'pre code',
-            inputArea: '#prompt-textarea, [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]',
-            sendButton: 'button[data-testid="send-button"]',
-            stopButton: 'button[data-testid="stop-button"]',
+            inputArea: '#prompt-textarea, textarea[name="prompt-textarea"], [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]',
+            sendButton: 'button#composer-submit-button, button[data-testid="send-button"], button[aria-label="Send prompt"], button[aria-label*="Send"]',
+            stopButton: 'button[data-testid="stop-button"], button[aria-label*="Stop"]',
             maxInlineChars: 20000
         }
     },
