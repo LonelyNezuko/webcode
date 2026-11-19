@@ -11,6 +11,7 @@ import type { BufferedResultBatch, ToolRequestRegistry } from "./tool_request_re
 interface ResultDeliveryControllerOptions {
   getAutoSend: () => boolean;
   getAutoSendDelaySeconds: () => number;
+  getSiteId?: () => string | null;
   followUpQueue: FollowUpQueue;
   hasPendingTurns: () => boolean;
   onBatchFinalized?: (requestKeys: readonly string[]) => void;
@@ -126,6 +127,7 @@ export class ResultDeliveryController {
           autoSendDelaySeconds,
           hasFileUpload,
           requestKeys,
+          retryIndefinitely: this.options.getSiteId?.() === "deepseek",
         },
         selectors
       );
