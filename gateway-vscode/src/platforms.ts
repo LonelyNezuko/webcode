@@ -54,7 +54,7 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
             url: 'https://chatgpt.com/backend-api/f/conversation'
         },
         selectors: {
-            messageBlocks: '.agent-turn',
+            messageBlocks: '[data-message-author-role="assistant"], .agent-turn',
             codeBlocks: 'pre code',
             inputArea: '#prompt-textarea, [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]',
             sendButton: [
