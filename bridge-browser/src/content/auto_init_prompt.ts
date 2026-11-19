@@ -183,6 +183,9 @@ export class AutoInitPromptController {
     if (!selectors || !this.options.isClientConnected() || this.modalOpen) {
       return null;
     }
+
+    // Explicit /webcode and @webcode commands must work in existing conversations too.
+    // Only the implicit "forgotten init prompt" fallback is restricted to pristine chats.
     const inputEl = this.findCurrentInputElement(requireActiveInput);
     if (!inputEl) {return null;}
 
