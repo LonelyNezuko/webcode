@@ -296,7 +296,6 @@ const resultDelivery = new ResultDeliveryController({
   followUpQueue,
   getAutoSend: () => isClientConnected && CONFIG.autoSend,
   getAutoSendDelaySeconds: () => CONFIG.autoSendDelaySeconds,
-  getSiteId: () => currentSiteId,
   hasPendingTurns: () => networkCapture.hasPendingTurns(),
   onBatchFinalized: (requestKeys) => domToolTurns.finalizeRequests(requestKeys),
   requestRegistry,
