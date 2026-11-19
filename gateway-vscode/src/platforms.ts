@@ -104,7 +104,7 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
         name: 'DeepSeek',
         address: 'https://chat.deepseek.com',
         showQuickLaunch: true,
-        autoSendDelaySeconds: 10,
+        autoSendDelaySeconds: 0,
         capture: {
             adapter: 'deepseek-chat-v0',
             channels: ['response'],
