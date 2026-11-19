@@ -17,8 +17,9 @@ suite('platform registry', () => {
         assert.strictEqual(chatgpt.address, 'https://chatgpt.com');
         assert.strictEqual(chatgpt.capture?.adapter, 'chatgpt-delta-v1');
         assert.strictEqual(chatgpt.capture?.url, 'https://chatgpt.com/backend-api/f/conversation');
-        assert.deepStrictEqual(chatgpt.capture?.channels, ['commentary', 'final']);
+        assert.deepStrictEqual(chatgpt.capture?.channels, ['*']);
         assert.match(chatgpt.selectors.messageBlocks, /data-message-author-role="assistant"/);
+        assert.match(chatgpt.selectors.messageBlocks, /data-message-author-role="user"/);
         assert.match(chatgpt.selectors.inputArea, /#prompt-textarea/);
         assert.match(chatgpt.selectors.inputArea, /textarea\[name="prompt-textarea"\]/);
         assert.match(chatgpt.selectors.sendButton, /#composer-submit-button/);
@@ -137,7 +138,7 @@ suite('platform registry', () => {
         assert.ok(chatgpt?.capture);
         assert.strictEqual(chatgpt.capture.enabled, false);
         assert.strictEqual(chatgpt.capture.adapter, 'chatgpt-delta-v1');
-        assert.deepStrictEqual(chatgpt.capture.channels, ['commentary', 'final']);
+        assert.deepStrictEqual(chatgpt.capture.channels, ['*']);
     });
 
     test('adds custom sites with a new id and complete selectors', () => {
