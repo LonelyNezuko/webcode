@@ -46,14 +46,14 @@ const buildDescriptor = {
 };
 writeFileSync(
   resolve(targetDir, BUILD_DESCRIPTOR_FILE),
-  `${JSON.stringify(buildDescriptor, null, 2)}\\n`,
+  `${JSON.stringify(buildDescriptor, null, 2)}\n`,
   'utf8'
 );
 
 function hashExtensionFiles(rootDir) {
   // Match runtime validation: sort normalized relative paths by UTF-16 code units.
   const files = collectFiles(rootDir)
-    .map(filePath => relative(rootDir, filePath).replace(/\\\\/g, '/'))
+    .map(filePath => relative(rootDir, filePath).replace(/\\/g, '/'))
     .sort();
   const hash = createHash('sha256');
   for (const relativePath of files) {
@@ -61,9 +61,9 @@ function hashExtensionFiles(rootDir) {
       continue;
     }
     hash.update(relativePath, 'utf8');
-    hash.update('\\0');
+    hash.update('\0');
     hash.update(readFileSync(resolve(rootDir, relativePath)));
-    hash.update('\\0');
+    hash.update('\0');
   }
   return hash.digest('hex');
 }

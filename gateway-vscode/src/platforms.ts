@@ -46,7 +46,7 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
         showQuickLaunch: true,
         capture: {
             adapter: 'chatgpt-delta-v1',
-            channels: ['commentary'],
+            channels: ['*'],
             enabled: true,
             method: 'POST',
             strategy: 'network-preferred',
@@ -54,11 +54,22 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
             url: 'https://chatgpt.com/backend-api/f/conversation'
         },
         selectors: {
-            messageBlocks: '[data-message-author-role="assistant"], .agent-turn',
+            messageBlocks: '[data-message-author-role="assistant"], [data-message-author-role="user"], .agent-turn',
             codeBlocks: 'pre code',
-            inputArea: '#prompt-textarea, textarea[name="prompt-textarea"], [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]',
-            sendButton: 'button#composer-submit-button, button[data-testid="send-button"], button[aria-label="Send prompt"], button[aria-label*="Send"]',
-            stopButton: 'button[data-testid="stop-button"], button[aria-label*="Stop"]',
+            inputArea: '#prompt-textarea, [data-testid="prompt-textarea"], div[contenteditable="true"][role="textbox"]',
+            sendButton: [
+                'button[data-testid="send-button"]',
+                'button[data-testid="composer-submit-button"]',
+                'button[id*="composer-submit"]',
+                'button[aria-label*="Send"]',
+                'button[aria-label*="Отправить"]'
+            ].join(', '),
+            stopButton: [
+                'button[data-testid="stop-button"]',
+                'button[data-testid*="stop"]',
+                'button[aria-label*="Stop"]',
+                'button[aria-label*="Остановить"]'
+            ].join(', '),
             maxInlineChars: 20000
         }
     },

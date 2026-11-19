@@ -186,7 +186,7 @@ export class ChatGptEventStreamDecoder {
     return author?.role === "assistant" &&
       content?.content_type === "text" &&
       typeof message.channel === "string" &&
-      this.targetChannels.has(message.channel) &&
+      (this.targetChannels.has("*") || this.targetChannels.has(message.channel)) &&
       (message.recipient === undefined || message.recipient === "all");
   }
 
