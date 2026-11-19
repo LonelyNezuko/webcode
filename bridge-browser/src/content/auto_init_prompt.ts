@@ -183,13 +183,13 @@ export class AutoInitPromptController {
     if (!selectors || !this.options.isClientConnected() || this.modalOpen) {
       return null;
     }
-    if (!isPristineConversation(selectors)) {return null;}
-
     const inputEl = this.findCurrentInputElement(requireActiveInput);
     if (!inputEl) {return null;}
 
     const currentText = getInputText(inputEl);
     if (!findAutoInitTrigger(currentText)) {return null;}
+    // An explicit /webcode or @webcode command must also work in an existing conversation.
+    // Only the implicit "forgotten initialization" flow is restricted to pristine chats.
     if (currentText === this.lastPromptedText) {return null;}
 
     return {
