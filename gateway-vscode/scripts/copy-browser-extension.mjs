@@ -53,7 +53,7 @@ writeFileSync(
 function hashExtensionFiles(rootDir) {
   // Match runtime validation: sort normalized relative paths by UTF-16 code units.
   const files = collectFiles(rootDir)
-    .map(filePath => relative(rootDir, filePath).replace(/\\\\/g, '/'))
+    .map(filePath => relative(rootDir, filePath).replace(/\\/g, '/'))
     .sort();
   const hash = createHash('sha256');
   for (const relativePath of files) {
