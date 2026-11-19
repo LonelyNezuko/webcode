@@ -32,7 +32,6 @@ export interface AutoSendConfig {
   autoSendDelaySeconds: number;
   hasFileUpload: boolean;
   requestKeys?: readonly string[];
-  retryIndefinitely?: boolean;
 }
 
 /**
@@ -114,7 +113,7 @@ export function triggerAutoSend(
 
     const scheduleRetry = () => {
       retryCount++;
-      if (config.retryIndefinitely || retryCount < maxRetries) {
+      if (retryCount < maxRetries) {
         scheduleSend(Math.max(AUTO_SEND_RETRY_MS, delayMs));
       } else {
         Logger.log(t("auto_send_timeout"), "error");
