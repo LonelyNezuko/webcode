@@ -46,7 +46,7 @@ const BUILTIN_AI_SITES: ResolvedAiSiteConfig[] = [
         showQuickLaunch: true,
         capture: {
             adapter: 'chatgpt-delta-v1',
-            channels: ['commentary', 'final'],
+            channels: ['*'],
             enabled: true,
             method: 'POST',
             strategy: 'network-preferred',
