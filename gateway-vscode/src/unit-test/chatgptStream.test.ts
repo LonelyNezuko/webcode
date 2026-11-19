@@ -23,11 +23,11 @@ suite('ChatGPT event stream capture', () => {
         }]);
     });
 
-    test('reconstructs inherited ChatGPT v1 deltas before exposing commentary', () => {
-        const decoder = new ChatGptEventStreamDecoder({ channels: ['commentary'] });
+    test('captures assistant tool calls regardless of their ChatGPT channel', () => {
+        const decoder = new ChatGptEventStreamDecoder({ channels: ['*'] });
         const stream = buildCompletedStream([
             createMessageDelta('system-1', 'system', null, 'finished_successfully', 'mcp_action example'),
-            createMessageDelta('assistant-1', 'assistant', 'commentary', 'in_progress', ''),
+            createMessageDelta('assistant-1', 'assistant', 'final', 'in_progress', ''),
             createDelta('/message/content/parts/0', 'append', '```json\n{"mcp_act'),
             JSON.stringify({ v: 'ion":"call","name":"read_file","purpose":"Read a file","arguments":{}}\n```' }),
             createStatusPatch('finished_successfully'),
