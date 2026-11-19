@@ -61,9 +61,9 @@ function hashExtensionFiles(rootDir) {
       continue;
     }
     hash.update(relativePath, 'utf8');
-    hash.update('\\0');
+    hash.update('\0');
     hash.update(readFileSync(resolve(rootDir, relativePath)));
-    hash.update('\\0');
+    hash.update('\0');
   }
   return hash.digest('hex');
 }
