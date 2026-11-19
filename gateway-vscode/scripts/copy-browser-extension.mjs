@@ -46,7 +46,7 @@ const buildDescriptor = {
 };
 writeFileSync(
   resolve(targetDir, BUILD_DESCRIPTOR_FILE),
-  `${JSON.stringify(buildDescriptor, null, 2)}\\n`,
+  `${JSON.stringify(buildDescriptor, null, 2)}\n`,
   'utf8'
 );
 
